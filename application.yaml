@@ -7,8 +7,8 @@ spec:
   project: default
 
   source:
-    repoURL: https://dev.azure.com/Latpay/Container/_git/argocd
-    targetRevision: trunk
+    repoURL: https://github.com/rmuthuarasu/sample.git
+    targetRevision: HEAD
     path: dev
   destination: 
     server: https://kubernetes.default.svc
