@@ -16,50 +16,8 @@ spec:
     spec:
       containers:
       - name: gcp
-        image: muthuarasu/gcp:latest
+        image: nginx
         ports:
         - containerPort: 80
       imagePullSecrets:
       - name: docker-secret
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: nodeport-svc
-  labels:
-    env: gcp
-spec:
-  type: NodePort
-  ports:
-    - nodePort: 30001
-      port: 80
-      targetPort: 80
-  selector:
-    env: gcp
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: cluster-svc
-  labels:
-    env: gcp
-spec:
-  ports:
-  - port: 80
-    targetPort: 80
-  selector:
-    env: gcp
-
----
-
-apiVersion: v1
-data:
-  .dockerconfigjson: eyJhdXRocyI6eyJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOnsidXNlcm5hbWUiOiJtdXRodWFyYXN1IiwicGFzc3dvcmQiOiJWYXN1Z2khQCM0NTYiLCJlbWFpbCI6Im11dGh1YXJhc3VAZGlnaXNvdXJjZS5jby5pbiIsImF1dGgiOiJiWFYwYUhWaGNtRnpkVHBXWVhOMVoya2hRQ00wTlRZPSJ9fX0=
-kind: Secret
-metadata:
-  name: docker-secret
-type: kubernetes.io/dockerconfigjson
